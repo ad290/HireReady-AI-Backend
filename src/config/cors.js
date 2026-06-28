@@ -1,4 +1,4 @@
-const LOCAL_ORIGINS = ["http://localhost:5173", "http://localhost:5174"]
+const LOCAL_ORIGINS = ["http://localhost:5173"]
 
 function getAllowedOrigins() {
     const origins = [...LOCAL_ORIGINS]
