@@ -4,7 +4,6 @@ const os = require("node:os")
 const { GoogleGenAI } = require("@google/genai")
 const { z } = require("zod")
 const { zodToJsonSchema } = require("zod-to-json-schema")
-const puppeteer = require("puppeteer")
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
@@ -110,7 +109,7 @@ function resolveChromeExecutablePath() {
     }
 
     try {
-        const bundled = puppeteer.executablePath()
+        const bundled = require("puppeteer").executablePath()
         if (bundled && isExecutableFile(bundled)) {
             return { executablePath: bundled, source: "puppeteer bundled (cache)" }
         }
@@ -122,6 +121,7 @@ function resolveChromeExecutablePath() {
 }
 
 async function generatePdfFromHtml(htmlContent) {
+    const puppeteer = require("puppeteer")
     const { executablePath, source } = resolveChromeExecutablePath()
     console.info("[Puppeteer] launching browser for resume PDF…", {
         executablePath: executablePath ?? "(puppeteer default — may use broken cache)",
